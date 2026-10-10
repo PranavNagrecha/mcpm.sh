@@ -1,0 +1,80 @@
+{
+  "name": "sf-intelligence",
+  "display_name": "sf-intelligence",
+  "description": "Ask your AI what breaks before you change Salesforce. Offline, read-only, cited answers from an org's real metadata: field deletion safety, what runs on save, who can see a record, dependency impact. Serves a local org-kb vault built by the sfi CLI; try the bundled demo org with no Salesforce login. Not affiliated with Salesforce.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PranavNagrecha/Salesforce-Intelligence"
+  },
+  "homepage": "https://sfi.auditforce.cloud",
+  "author": {
+    "name": "Pranav Nagrecha",
+    "url": "https://github.com/PranavNagrecha"
+  },
+  "license": "MIT with Commons Clause",
+  "categories": [
+    "Dev Tools",
+    "Knowledge Base"
+  ],
+  "tags": [
+    "salesforce",
+    "metadata",
+    "impact-analysis",
+    "dependency-analysis",
+    "read-only",
+    "offline"
+  ],
+  "installations": {
+    "npm": {
+      "type": "npm",
+      "command": "npx",
+      "args": [
+        "-y",
+        "sf-intelligence",
+        "mcp"
+      ],
+      "package": "sf-intelligence",
+      "env": {
+        "SFI_VAULT": "${SFI_VAULT}"
+      },
+      "description": "Serve your org's vault (build it first with `npx -y sf-intelligence init --target-org <alias>` and `npx -y sf-intelligence refresh` in your Salesforce DX project). Equivalent to `npx -y sf-intelligence mcp --vault /absolute/path/to/org-kb`.",
+      "recommended": true
+    },
+    "demo": {
+      "type": "npm",
+      "command": "npx",
+      "args": [
+        "-y",
+        "sf-intelligence",
+        "demo"
+      ],
+      "package": "sf-intelligence",
+      "description": "Bundled synthetic demo org served over MCP, no Salesforce login or vault needed",
+      "recommended": false
+    }
+  },
+  "arguments": {
+    "SFI_VAULT": {
+      "description": "Absolute path to the org-kb vault built by `sfi init` + `sfi refresh`. If no vault is found the server starts in setup mode with one tool (sfi.setup_status).",
+      "required": true,
+      "example": "/Users/you/my-sfdx-project/org-kb"
+    }
+  },
+  "examples": [
+    {
+      "title": "Field deletion safety",
+      "description": "Check every dependency before deleting a field",
+      "prompt": "Can I safely delete Account.Legacy_Code__c?"
+    },
+    {
+      "title": "Save-time automation",
+      "description": "List the triggers, flows and rules that run on save, in order",
+      "prompt": "What happens when an Opportunity is saved?"
+    },
+    {
+      "title": "Record visibility",
+      "description": "Explain why a user cannot see a record",
+      "prompt": "Why can't a user with the Sales profile see Case records?"
+    }
+  ]
+}
